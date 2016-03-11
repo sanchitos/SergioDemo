@@ -1,4 +1,4 @@
-﻿$padding: 7px;
+﻿$padding: 16px;
 nav {
   ul {
     margin: 0;
@@ -9,7 +9,7 @@ nav {
   li { display: inline-block; }
 
   a {
-    display: block;
+    display: none;
     padding: $padding 12px;
     text-decoration: none;
   }

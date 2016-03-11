@@ -17,6 +17,7 @@ namespace SergioDemo
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+                .AddJsonFile("customsettings.json")
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
@@ -27,7 +28,7 @@ namespace SergioDemo
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public static IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

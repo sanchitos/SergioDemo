@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='sass' Clean='clean' />
+﻿/// <binding BeforeBuild='sass, sass-minified' Clean='clean' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -6,7 +6,9 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
-    sass = require("gulp-sass");
+    sass = require("gulp-sass"),
+    rename = require("gulp-rename");
+    
 
 var paths = {
     webroot: "./wwwroot/"
@@ -22,9 +24,13 @@ paths.concatCssDest = paths.webroot + "css/site.min.css";
 
 gulp.task('sass', function () {
     gulp.src(paths.scss)
-        .pipe(sass())
+        .pipe(sass())                
+        .pipe(gulp.dest(paths.webroot + "css"))
+        .pipe(cssmin())
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(paths.webroot + "css"));
 });
+
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);
 });
