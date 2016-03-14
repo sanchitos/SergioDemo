@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using SergioDemo.Models;
+using SergioDemo.Services.Interfaces;
 
 namespace SergioDemo.Controllers
 {
     public class HomeController : Controller
     {
+        public IEmailService _service;
+        public HomeController(IEmailService service)
+        {
+            _service = service;
+        }
         public IActionResult Index()
         {
             return View();
@@ -31,7 +37,10 @@ namespace SergioDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Message = "Your information has been sent to: " + model.Email;                
+                var fromEmail = Startup.Configuration["Site:ContactTo"];
+                ViewBag.Message = "Your information has been sent to: " + model.Email;
+                _service.SendEmail(fromEmail, model.Email, model.Name, model.Comment);
+
                 return RedirectToAction("Contact");
             }
             else

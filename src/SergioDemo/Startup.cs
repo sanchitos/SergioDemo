@@ -7,6 +7,8 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SergioDemo.Services;
+using SergioDemo.Services.Interfaces;
 
 namespace SergioDemo
 {
@@ -37,6 +39,7 @@ namespace SergioDemo
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
